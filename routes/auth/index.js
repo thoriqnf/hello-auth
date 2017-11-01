@@ -10,13 +10,13 @@ router.get("/", function(req, res, next) {
 
 router.post("/login", controller.checkBody, (req, res) => {
   res.send({
-    body: req.body.username
+    body: req.body.username || req.message
   });
 });
 
 router.get("/check", controller.checkToken, (req, res) => {
   res.send({
-    token: req.headers.authorization
+    token: req.headers.authorization || req.message
   });
 });
 module.exports = router;
