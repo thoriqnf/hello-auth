@@ -1,18 +1,22 @@
 var express = require("express");
 var router = express.Router();
 
+var controller = require("./controller");
+
 /* GET users listing. */
 router.get("/", function(req, res, next) {
   res.send("test auth");
 });
 
-router.post("/", (req, res, next) => {
-  console.log(req.headers);
-  console.log(req.body);
+router.post("/login", controller.checkBody, (req, res) => {
   res.send({
-    body: req.body,
-    headers: req.headers
+    body: req.body.username
   });
 });
 
+router.get("/check", controller.checkToken, (req, res) => {
+  res.send({
+    token: req.headers.authorization
+  });
+});
 module.exports = router;
