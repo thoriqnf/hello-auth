@@ -4,19 +4,23 @@ var router = express.Router();
 var controller = require("./controller");
 
 /* GET users listing. */
-router.get("/", function(req, res, next) {
-  res.send("test auth");
+router.get("/", (req, res, next) {
+  res.send({
+    message: "test auth"
+  });
 });
 
 router.post("/login", controller.checkBody, (req, res) => {
   res.send({
-    body: req.body.username || req.message
+    username: req.body.username,
+    token: req.token,
+    message: req.message
   });
 });
 
 router.get("/check", controller.checkToken, (req, res) => {
   res.send({
-    token: req.headers.authorization || req.message
+    message: req.message
   });
 });
 module.exports = router;
